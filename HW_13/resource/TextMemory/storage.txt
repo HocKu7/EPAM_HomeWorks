@@ -12,8 +12,8 @@ Carriers{
     5#Gruzovichkov#Nevskiy street 91#train#3
 }
 Transportation{
-    1#4#Some transportation#Vasya#20.12.2019
-    2#4#Some transportation 2#Vasya 2#21.12.2019
-    3#5#Some transportation 3#Vasya 3#22.12.2019
+    1#4#Some main.transportation#Vasya#20.12.2019
+    2#4#Some main.transportation 2#Vasya 2#21.12.2019
+    3#5#Some main.transportation 3#Vasya 3#22.12.2019
 }
 
