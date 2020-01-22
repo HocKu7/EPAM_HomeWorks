@@ -28,6 +28,7 @@ public class XmlDomFileInitorMultiThread extends BaseFileInitor {
     private Map<String, Cargo> cargoMap;
     private Map<String, Carrier> carrierMap;
     private List<ParsedTransportation> transportations;
+    private boolean somethingGoingWrongInThreads = false;
 
     public Map<String, Cargo> getCargoMap() {
         return cargoMap;
@@ -47,7 +48,7 @@ public class XmlDomFileInitorMultiThread extends BaseFileInitor {
         try {
             file = getFileWithInitData();
             Document document = XmlDomUtils.getDocument(file);
-            //cargoMap=parseCargos(document);
+
             Thread threadCargos = parseCargosThread(document);
             Thread threadCarriers = parseCarriersThread(document);
             Thread threadTransporation = parseTransportationThread(document);
@@ -55,6 +56,9 @@ public class XmlDomFileInitorMultiThread extends BaseFileInitor {
             threadCargos.join();
             threadCarriers.join();
             threadTransporation.join();
+            if (somethingGoingWrongInThreads == true) {
+                throw new InitStorageException("Error in threads");
+            }
 
 
             setReffBetweenEntries(cargoMap, carrierMap, transportations);
@@ -72,14 +76,17 @@ public class XmlDomFileInitorMultiThread extends BaseFileInitor {
         }
     }
 
+
     private Thread parseCargosThread(Document document) {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     cargoMap = parseCargos(document);
-                } catch (ParseException e) {
+                } catch (Exception e) {
+                    somethingGoingWrongInThreads = true;
                     e.printStackTrace();
+                    throw new RuntimeException();
                 }
             }
         });
@@ -93,8 +100,11 @@ public class XmlDomFileInitorMultiThread extends BaseFileInitor {
             public void run() {
                 try {
                     carrierMap = parseCarriers(document);
-                } catch (ParseException e) {
+                } catch (Exception e) {
+                    somethingGoingWrongInThreads = true;
                     e.printStackTrace();
+                    throw new RuntimeException();
+
                 }
             }
         });
@@ -108,8 +118,10 @@ public class XmlDomFileInitorMultiThread extends BaseFileInitor {
             public void run() {
                 try {
                     transportations = parseTransportationsData(document);
-                } catch (ParseException e) {
+                } catch (Exception e) {
+                    somethingGoingWrongInThreads = true;
                     e.printStackTrace();
+                    throw new RuntimeException();
                 }
             }
         });

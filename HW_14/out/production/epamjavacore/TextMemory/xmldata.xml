@@ -21,18 +21,7 @@
 
   </cargos>
 
-  <carriers>
-    <carrier id="1_b">
-      <name>YOUR_DELIVERY</name>
-      <address>Spb, Nevskiy 800</address>
-      <type>SHIP</type>
-    </carrier>
-    <carrier id="2_b">
-      <name>FASTEST EVER</name>
-      <address>Sp, Prosveheniya 900</address>
-      <type>PLANE</type>
-    </carrier>
-  </carriers>
+ 
 
 
   <transportations>
