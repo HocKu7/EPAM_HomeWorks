@@ -52,6 +52,7 @@ public class InMemoryStorageInitor implements StorageInitor {
     ClothersCargo cargo = new ClothersCargo();
     cargo.setSize("Clothers_Size_" + index);
     cargo.setName("Jeans");
+   // cargo.setName("Milk");
     cargo.setWeight(ThreadLocalRandom.current().nextInt(1, 100 + 1));
 
     return cargo;
