@@ -11,6 +11,7 @@ import main.storage.initor.StorageInitor;
 import main.transportation.service.TransportationService;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.w3c.dom.ls.LSOutput;
 
@@ -21,13 +22,13 @@ import java.util.List;
 import static main.storage.initor.StorageInitorFactory.getStorageInitor;
 
 public class CargoServiceTest {
-    CargoService cargoService;
-    CarrierService carrierService;
-    TransportationService transportationService;
-    StorageInitor storageInitor;
+    static CargoService cargoService;
+    static CarrierService carrierService;
+    static TransportationService transportationService;
+    static StorageInitor storageInitor;
 
-    @Before
-    public void init() throws InitStorageException {
+    @BeforeClass
+    public static void init() throws InitStorageException {
         ServiceHolder.initServiceHolder(StorageType.COLLECTION);
         cargoService = ServiceHolder.getInstance().getCargoService();
         carrierService = ServiceHolder.getInstance().getCarrierService();
